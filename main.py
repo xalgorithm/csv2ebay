@@ -3,8 +3,8 @@ from builtins import print
 import pandas as pd
 import ebay as e
 import whatnot as w
+import yousell as y
 import argparse
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--service', help='Sellers service')
@@ -27,6 +27,9 @@ def convert_to_json():
         elif service == 'whatnot':
             df3 = pd.read_csv('csvs/whatnot.csv')
             return df3
+        elif service == 'yousell':
+            df3 = pd.read_csv('csvs/yousell.csv')
+            return df3
         else:
             print('No service selected')
     except json.decoder.JSONDecodeError:
@@ -40,6 +43,9 @@ def route_service():
     elif service == 'whatnot':
         w.merge_whatnot(df2, df3)
         return df3
+    elif service == 'yousell':
+        y.merge_yousell(df2, df3)
+        return df3
 
 
 def combine_fields(df2):
@@ -52,7 +58,12 @@ def combine_fields(df2):
 
 
 def to_csv():
-    df3.to_csv('output.csv', index=False)
+    if service == 'ebay':
+        df3.to_csv('output_ebay.csv', index=False)
+    elif service == 'whatnot':
+        df3.to_csv('output_whatnot.csv', index=False)
+    elif service == 'yousell':
+        df3.to_csv('output_yousell.csv', index=False)
 
 
 if __name__ == '__main__':
