@@ -4,7 +4,7 @@ def merge_ebay(df2, df3):
     for i in range(num_rows):
         df3.loc[i, 'sku'] = "br_kn" + str(random.randint(100000, 999999))
         df3.loc[i, 'title'] = df2.loc[i, 'Combined']
-        df3.loc[i, 'upc'] = df2.loc[i, 'Barcode'].astype(str)
+        df3.loc[i, 'upc'] = df2.loc[i, 'Barcode'].astype(int)
         df3.loc[i, 'category_id'] = "259104"
         df3.loc[i, 'item_description'] = df2.loc[i, 'Description']
         df3.loc[i, 'price_ebay'] = str(float(df2.loc[i, 'Value'])*(80/100))
