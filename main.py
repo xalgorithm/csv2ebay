@@ -1,10 +1,11 @@
+import argparse
+import utils.config as cf
 import json.decoder
 from builtins import print
 import pandas as pd
 import ebay as e
 import whatnot as w
 import yousell as y
-import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--service', help='Sellers service')
@@ -59,14 +60,15 @@ def combine_fields(df2):
 
 def to_csv():
     if service == 'ebay':
-        df3.to_csv('output_ebay.csv', index=False)
+        df3.to_csv('output/output_ebay.csv', index=False)
     elif service == 'whatnot':
-        df3.to_csv('output_whatnot.csv', index=False)
+        df3.to_csv('output/output_whatnot.csv', index=False)
     elif service == 'yousell':
-        df3.to_csv('output_yousell.csv', index=False)
+        df3.to_csv('output/output_yousell.csv', index=False)
 
 
 if __name__ == '__main__':
+    cfg = cf.read_config()
     df2 = pull_new_data(df1)
     df2 = combine_fields(df2)
     df3 = convert_to_json()
